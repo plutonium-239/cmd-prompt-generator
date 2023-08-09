@@ -83,7 +83,7 @@ export default defineComponent({
 
 .selected
   // darken the background color because the delete icon has the same color
-  background-color: darken($color-accent, 15%)
+  background-color: lighten($color-accent, 20%)
 
 .parameter
   vertical-align: middle

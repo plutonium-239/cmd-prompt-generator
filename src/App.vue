@@ -72,6 +72,7 @@ body
   font-family: Helvetica, Arial, sans-serif
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
+  tranition: all 0.5s linear
 
 main
   color: $color-foreground
@@ -91,6 +92,10 @@ main
 
   &>div
     padding: 0.8em 1em 0.2em
+  
+::selection
+  color: white
+  background: $color-accent
 
 #element-selection
   flex: 2
@@ -125,7 +130,7 @@ h3
 .dark
   h2,
   h3
-    color: $color-background
+    color: lighten($color-accent, 15%)
 
   .hint
     opacity: 0.7

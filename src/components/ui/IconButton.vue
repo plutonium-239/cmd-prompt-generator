@@ -1,5 +1,5 @@
 <template>
-  <span :title="title">
+  <span :title="title" type="button">
     <component :is="icon" class="icon-button"></component>
   </span>
 </template>
@@ -68,6 +68,7 @@ export default defineComponent({
   margin: 0 0.2em
   vertical-align: bottom
   cursor: pointer
+  user-select: none
 
 .inline
   .icon-button
@@ -75,4 +76,6 @@ export default defineComponent({
     height: 1.2em
     margin-left: 0.4em
     vertical-align: middle
+    user-select: none
+
 </style>

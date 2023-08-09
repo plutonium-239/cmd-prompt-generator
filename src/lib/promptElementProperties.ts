@@ -1,4 +1,4 @@
-import { displayAttribute, displayColor } from './enum/ansi';
+import { displayAttribute, displayColor, displayBackspaces } from './enum/ansi';
 import { Color } from './enum/color';
 
 /**
@@ -12,6 +12,7 @@ import { Color } from './enum/color';
 export type PropertiesState = {
   colors: Record<displayColor, Color | null>;
   attributes: Record<displayAttribute, boolean>;
+  backspaces: Record<displayBackspaces, number>;
 };
 
 /**
@@ -32,6 +33,9 @@ export function defaultPropertiesState(): PropertiesState {
       reverse: false,
       overline: false,
     },
+    backspaces: {
+      number: 0
+    }
   };
 }
 
@@ -71,6 +75,10 @@ export function propertiesDelta(propBefore: PropertiesState, propAfter: Properti
   Object.keys(propBefore).forEach((keyGroup) => {
     const typedKeyGroup = keyGroup as keyof PropertiesState;
 
+    console.log(typedKeyGroup);
+    if (typedKeyGroup === 'backspaces') {
+      return;
+    }
     Object.keys(propBefore[typedKeyGroup]).forEach((key) => {
       const typedKey = key as keyof PropertiesState[typeof typedKeyGroup];
 

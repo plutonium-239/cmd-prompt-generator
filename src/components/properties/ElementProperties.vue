@@ -188,6 +188,8 @@ export default defineComponent({
         element.foregroundColor = this.element.foregroundColor;
         element.backgroundColor = this.element.backgroundColor;
         element.attributes = { ...this.element.attributes };
+        element.backspaces = this.element.backspaces;
+        // element.backspaces = { ...this.element.backspaces};
         element.parameters = { ...this.element.parameters };
         prompt.state().push(element);
       }

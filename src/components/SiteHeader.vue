@@ -5,7 +5,7 @@
       <IconButton icon="QuestionMarkCircleIcon" title="Help" @click="openHelp"></IconButton>
       <IconButton icon="MoonIcon" title="Toggle dark mode" @click="toggleDarkMode"></IconButton>
     </div>
-    <h1>$&nbsp;<span class="underscore">_</span>&nbsp;Bash Prompt Generator</h1>
+    <h1>$&nbsp;<span class="underscore">_</span>&nbsp;CMD Prompt Generator</h1>
     <!--
       The github corner element was adapted from <https://github.com/tholman/github-corners>.
       MIT License: <https://github.com/tholman/github-corners/blob/master/license.md>
@@ -82,8 +82,8 @@ export default defineComponent({
 
 header
   margin: 0
-  color: $color-background
-  background-color: #212121
+  color: $color-accent
+  background-color: #111
   text-align: center
 
   h1
@@ -92,7 +92,7 @@ header
     padding: 0.5em
 
   .underscore
-    color: #4caa25
+    color: $color-underscore
 
 .header-buttons
   position: absolute

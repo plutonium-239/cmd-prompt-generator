@@ -27,8 +27,9 @@
           'preview-blink': element.data.attributes.blink,
           'preview-overline': element.data.attributes.overline,
         }"
-        >{{ element.data.type.preview(element.data.parameters) }}</span
       >
+        {{ bsSlicer(element.data.type.preview(element.data.parameters), element.data.backspaces) }}
+      </span>
       <br v-else />
     </span>
     <span class="cursor">&#9608;</span>
@@ -63,6 +64,7 @@ function mergeCrPartitions(part1: UniquePromptElement[], part2: UniquePromptElem
 
   // the (remaining) number of characters that are overwritten by the second partition
   let overlaid = part2.map(previewLength).reduce((a, b) => a + b, 0);
+  console.log('hi1');
 
   part1.forEach((element) => {
     if (overlaid === 0) {
@@ -93,8 +95,17 @@ function mergeCrPartitions(part1: UniquePromptElement[], part2: UniquePromptElem
     overlaid = 0;
   });
 
+  console.log('hi2');
+  console.log(merged);
   return merged;
 }
+
+// export function bsSlicer(str:string, backspaces:number) {
+//   // if (backspaces > 0) {
+//   //   return bsSlicer
+//   // }
+//   return str.slice(0, str.length - backspaces);
+// }
 
 /**
  * An example preview of the prompt as specified in the `preview` attributes in `PROMPT_ELEMENT_TYPES`
@@ -131,6 +142,27 @@ export default defineComponent({
           crPartitions[crPartitions.length - 1].push(element);
         }
       }
+      // crPartitions.forEach(partition => {
+      
+      for (let i = 0; i < crPartitions.length; i+=1) {  
+        const newpartition = [] as UniquePromptElement[];
+        for (let index = 0; index < crPartitions[i].length; index += 1) {
+          const element = crPartitions[i][index];
+          element.data.backspaces = 0;
+
+          if (element.data.type.preview(element.data.parameters) === '\b') {
+            // backspace at beginning of line/partition is ignored
+            if (newpartition.length > 0) {
+              newpartition[newpartition.length - 1].data.backspaces += 1;
+            }
+          } else {
+            // console.log(element);
+            newpartition.push(element);
+          }
+
+        }
+        crPartitions[i] = newpartition;
+      }
 
       // merge partitions from left to right as the third partition may overlay elements from the second partition which
       // again may overlay elements from the first partition
@@ -144,6 +176,10 @@ export default defineComponent({
     togglePreview() {
       this.light = !this.light;
     },
+    bsSlicer(str:string, backspaces:number) {
+      // const str = this. .type.preview(this.data.parameters)
+      return str.slice(0, str.length - backspaces);
+    }
   },
   updated() {
     // restart all blinking animations so that they are in sync

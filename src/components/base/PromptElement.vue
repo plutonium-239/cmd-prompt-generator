@@ -6,8 +6,8 @@
 </template>
 
 <script lang="ts">
-import darkMode from '@/lib/darkMode';
 import { defineComponent } from 'vue';
+import darkMode from '@/lib/darkMode';
 
 export default defineComponent({
   name: 'BasePromptElement',
@@ -48,11 +48,13 @@ export default defineComponent({
   border-radius: 0.2em
   padding: 0.3em 0.4em
   background-color: $color-dark
-  color: $color-background
+  color: $color-dim
   cursor: pointer
-
   &.dark
-    color: $color-dim
+    &.selected
+      background-color: lighten($color-accent, 20%)
+    background-color: $color-dark-on-light
+    color: $color-dim-on-light
 
   .prompt-element_label
     vertical-align: middle

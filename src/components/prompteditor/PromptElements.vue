@@ -21,15 +21,15 @@
     <p>You have not added any elements to your prompt yet.</p>
     <p>Click on a prompt element to start.</p>
     <hr />
-    <p>Alternatively, you can paste your existing <code>PS1</code> string to import it:</p>
+    <p>Alternatively, you can paste your existing <code>PROMPT</code> string to import it:</p>
     <label for="import-ps1" class="import-ps1">
-      <code>PS1</code>:&nbsp;
+      <code>PROMPT</code>:&nbsp;
       <input
         type="text"
         id="import-ps1"
         v-model="ps1input"
         @change="ps1inputError = ''"
-        placeholder="echo $PS1"
+        placeholder="echo %PROMPT%"
         spellcheck="false"
       />
     </label>

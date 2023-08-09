@@ -31,3 +31,5 @@ export type displayColor = 'foregroundColor' | 'backgroundColor';
  * Properties for setting display attributes.
  */
 export type displayAttribute = 'bold' | 'dim' | 'italic' | 'underline' | 'blink' | 'reverse' | 'overline';
+
+export type displayBackspaces = 'number'

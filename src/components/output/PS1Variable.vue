@@ -140,7 +140,9 @@ function generateEscapeCodes(propsBefore: PropertiesState, propsAfter: Propertie
     allOffThenOnEscapeCodesStr.length < resetOrOverrideEscapeCodesStr.length
       ? allOffThenOnEscapeCodesStr
       : resetOrOverrideEscapeCodesStr;
-  return `\\[\\e[${escapeCodesStr}m\\]`;
+  // const escapeCodesStr = allOffThenOnEscapeCodesStr;
+  // console.log(escapeCodesStr);
+  return `$e[${escapeCodesStr}m`;
 }
 
 /**
@@ -165,6 +167,11 @@ function generatePS1(elements: PromptElement[]): string {
       // insert any reset escape codes in between them
       return;
     }
+    console.log(element.type.char(element.parameters));
+    if (element.type.char(element.parameters) === '$h') {
+      console.log('Hello');
+      return;
+    }
 
     const newPropertiesState: PropertiesState = {
       colors: {
@@ -180,6 +187,9 @@ function generatePS1(elements: PromptElement[]): string {
         reverse: element.attributes.reverse,
         overline: element.attributes.overline,
       },
+      backspaces: {
+        number: element.backspaces
+      }
     };
 
     const escapeCodes = generateEscapeCodes(propertiesState, newPropertiesState);
@@ -193,14 +203,14 @@ function generatePS1(elements: PromptElement[]): string {
   const endReset =
     Object.values(propertiesState.colors).some((color) => color !== null) ||
     Object.values(propertiesState.attributes).some((attribute) => attribute)
-      ? '\\[\\e[0m\\]'
+      ? '$e[0m'
       : '';
 
   // we cannot escape single quotes inside single-quoted strings
   // therefore we have to split the string and insert a double-quoted single quote in between:
   // 'prefix' "'" 'suffix'
   // eslint-disable-next-line quotes
-  return `PS1='${outputElements.join('').replace(/'/g, "'\"'\"'")}${endReset}'`;
+  return `PROMPT='${outputElements.join('').replace(/'/g, "'\"'\"'")}${endReset}'`;
 }
 
 /**
@@ -248,8 +258,8 @@ export default defineComponent({
   white-space: pre-wrap
 
   &.dark
-    color: $color-dim
-    background-color: $color-dark
+    color: $color-foreground
+    background-color: $color-background
 
   span
     user-select: all

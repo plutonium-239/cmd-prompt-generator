@@ -95,6 +95,7 @@ function readEscapeCodes(
   let after = {
     colors: { ...before.colors },
     attributes: { ...before.attributes },
+    backspaces: { ...before.backspaces},
   };
 
   for (let i = 0; i < escapeCodes.length; i += 1) {

@@ -21,6 +21,9 @@ export class PromptElement {
    */
   attributes: Record<displayAttribute, boolean>;
 
+  // backspaces: Record<displayBackspaces, number>;
+  backspaces: number;
+
   /**
    * The foreground color of the element.
    */
@@ -48,6 +51,7 @@ export class PromptElement {
       reverse: false,
       overline: false,
     };
+    this.backspaces = 0;
     this.foregroundColor = null;
     this.backgroundColor = null;
   }
